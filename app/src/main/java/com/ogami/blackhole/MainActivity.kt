@@ -17,7 +17,7 @@ class MainActivity : BaseActivity() {
 
 
         Thread {
-            Thread.sleep(2000)
+            Thread.sleep(1000)
 
             runOnUiThread {
                 startActivityByARouter(ArouterPatch.HomeActivity)

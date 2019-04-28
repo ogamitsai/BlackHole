@@ -1,6 +1,7 @@
 package com.ogami.blackhole
 
 import com.ogami.commonlib.base.BaseApplication
+import com.ogami.commonlib.base.config.AppConfig
 
 
 /**
@@ -12,6 +13,5 @@ import com.ogami.commonlib.base.BaseApplication
  **/
 
 class MainApplication : BaseApplication() {
-
 
 }

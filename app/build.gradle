@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+
 
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
@@ -24,10 +24,19 @@ android {
     }
 }
 
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(':commonlib')
+
+
+
+    if(!rootProject.ext.isMainApplication){
+        implementation project(':main')
+    }
+
+
 
 
 }
