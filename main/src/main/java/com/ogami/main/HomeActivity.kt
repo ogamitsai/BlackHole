@@ -7,10 +7,13 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.animation.TranslateAnimation
 import androidx.appcompat.app.AppCompatActivity
+import com.alibaba.android.arouter.facade.annotation.Route
+import com.ogami.commonlib.arouter.ArouterPatch
+import com.ogami.commonlib.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_home.*
 
-class HomeActivity : AppCompatActivity() {
-
+@Route(path = ArouterPatch.HomeActivity)
+class HomeActivity : BaseActivity() {
 
     val anim by lazy { AnimationUtils.loadAnimation(applicationContext, R.anim.translate_test) }
 
