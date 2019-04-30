@@ -1,9 +1,12 @@
 package com.ogami.commonlib.base
 
 import androidx.lifecycle.ViewModel
+import com.apkfuns.logutils.LogUtils
+import com.ogami.commonlib.coroutine.coroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
 
 
 /**
@@ -13,8 +16,15 @@ import kotlinx.coroutines.Job
  **/
 open class BaseViewModel : ViewModel() {
 
-    val httpScope: CoroutineScope by lazy {
-        CoroutineScope(Dispatchers.Main + Job())
+    val vmScope: CoroutineScope by lazy {
+        CoroutineScope(coroutineDispatcher)
+    }
+
+
+
+    override fun onCleared() {
+        super.onCleared()
+        vmScope.cancel()
     }
 
 

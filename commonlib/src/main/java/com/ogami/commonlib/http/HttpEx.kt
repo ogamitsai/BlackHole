@@ -22,18 +22,8 @@ import kotlin.coroutines.suspendCoroutine
  **/
 
 
-inline fun <T> BaseViewModel.request(noinline block: suspend CoroutineScope.() -> T) {
-    httpScope.launch {
-        try {
-            withContext(context = Dispatchers.Main, block = block)
-        } catch (e: Exception) {
-            LogUtils.tag("ogami").i(e)
-        } finally {
+inline fun BaseViewModel.request(noinline block: suspend CoroutineScope.() -> Unit)  = vmScope.async(block = block)
 
-        }
-    }
-
-}
 
 suspend fun <T> Call<T>.await(): T {
     return suspendCoroutine {
