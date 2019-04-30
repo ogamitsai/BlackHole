@@ -1,29 +1,33 @@
 package com.ogami.blackhole
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.ogami.commonlib.arouter.ArouterPatch
-import com.ogami.commonlib.arouter.startActivityByARouter
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import com.apkfuns.logutils.LogUtils
 import com.ogami.commonlib.base.BaseActivity
+import com.ogami.commonlib.coroutine.launch
+import com.ogami.commonlib.http.ApiService
+import com.ogami.commonlib.http.ApiFactory
 
 /**
  *  第一个 个人App 刚好发布第一张黑洞照片 所以取名叫黑洞
  */
 class MainActivity : BaseActivity() {
 
+
+    val vm by lazy { ViewModelProviders.of(this).get(MainViewModel::class.java) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+//        launch{
+//            LogUtils.tag("ogami").i(Thread.currentThread().name)
+//        }
 
-        Thread {
-            Thread.sleep(1000)
 
-            runOnUiThread {
-                startActivityByARouter(ArouterPatch.HomeActivity)
-            }
+        vm.testmScope()
 
-        }.start()
 
 
     }

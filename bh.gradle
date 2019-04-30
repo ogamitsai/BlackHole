@@ -14,7 +14,7 @@ ext {
     ]
 
 
-    versions = [
+    version = [
             retrofitSdkVersion: "2.4.0",
             glideSdkVersion   : "4.8.0",
             canarySdkVersion  : "1.5.4",
@@ -37,12 +37,17 @@ ext {
             "core"              : "androidx.core:core:1.0.0+",
             "recyclerview"      : "androidx.recyclerview:recyclerview:1.0.0-beta01",
             "multidex"          : 'androidx.multidex:multidex:2.0.0',
+            "lifecycle"         : 'androidx.lifecycle:lifecycle-extensions:2.0.0-beta01',
+
+            //Log
+            "debuglog"          : 'com.apkfuns.logutils:library:+',
+            "releaselog"        : 'com.apkfuns.logutils:logutils-no-op:+',
 
             //jetpack
 
             //network
-//            "retrofit"                 : "com.squareup.retrofit2:retrofit:${version["retrofitSdkVersion"]}",
-//            "retrofit-converter-gson"  : "com.squareup.retrofit2:converter-gson:${version["retrofitSdkVersion"]}",
+            "retrofit"          : "com.squareup.retrofit2:retrofit:${version["retrofitSdkVersion"]}",
+            "retrofit-converter-gson"  : "com.squareup.retrofit2:converter-gson:${version["retrofitSdkVersion"]}",
 //            "retrofit-adapter-rxjava2"  : "com.squareup.retrofit2:adapter-rxjava2:${version["retrofitSdkVersion"]}",
 //            "okhttp"                   : "com.squareup.okhttp3:okhttp:${version["okhttp"]}",
 //            "logging-interceptor"      : "com.squareup.okhttp3:logging-interceptor:${version["okhttp"]}",
@@ -60,7 +65,7 @@ ext {
             "router-compiler"   : "com.alibaba:arouter-compiler:1.2.2",
 
             //image
-            "glide"             : "com.github.bumptech.glide:glide:${versions["glideSdkVersion"]}",
+            "glide"             : "com.github.bumptech.glide:glide:${version["glideSdkVersion"]}",
             //tools
             "eventbus"          : "org.greenrobot:eventbus:3.0.0",
             "dagger"            : "com.google.dagger:dagger:2.13",
