@@ -3,7 +3,6 @@ package com.ogami.blackhole
 import android.os.Bundle
 import com.ogami.commonlib.android.startActivityByEx
 import com.ogami.commonlib.base.BaseActivity
-import com.ogami.commonlib.coroutine.launch
 
 
 /**
@@ -18,10 +17,5 @@ class SecondActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
 
 
-        launch(3000) {
-            startActivityByEx<MainActivity>()
-
-
-        }
     }
 }

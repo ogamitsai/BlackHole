@@ -22,23 +22,21 @@ import kotlin.coroutines.suspendCoroutine
  **/
 
 
-inline fun BaseViewModel.request(noinline block: suspend CoroutineScope.() -> Unit)  = vmScope.async(block = block)
+inline fun BaseViewModel.request(noinline block: suspend CoroutineScope.() -> Unit) = vmScope.async(block = block)
 
 
-suspend fun <T> Call<T>.await(): T {
-    return suspendCoroutine {
-        enqueue(object : Callback<T> {
-            override fun onFailure(call: Call<T>, t: Throwable) {
-                it.resumeWithException(t)
+suspend fun <T> Call<T>.await(): T = suspendCoroutine {
+    enqueue(object : Callback<T> {
+        override fun onFailure(call: Call<T>, t: Throwable) {
+            it.resumeWithException(t)
+        }
+
+        override fun onResponse(call: Call<T>, response: Response<T>) {
+            if (response.isSuccessful) {
+                it.resume(response.body()!!)
+            } else {
+                it.resumeWithException(Throwable(response.toString()))
             }
-
-            override fun onResponse(call: Call<T>, response: Response<T>) {
-                if (response.isSuccessful) {
-                    it.resume(response.body()!!)
-                } else {
-                    it.resumeWithException(Throwable(response.toString()))
-                }
-            }
-        })
-    }
+        }
+    })
 }

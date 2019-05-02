@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModelProviders
 import com.apkfuns.logutils.LogUtils
 import com.ogami.commonlib.android.startActivityByEx
 import com.ogami.commonlib.base.BaseActivity
-import com.ogami.commonlib.coroutine.launch
 import com.ogami.commonlib.http.ApiService
 import com.ogami.commonlib.http.ApiFactory
 
@@ -26,26 +25,22 @@ class MainActivity : BaseActivity() {
 //            LogUtils.tag("ogami").i(Thread.currentThread().name)
 //        }
 
-        vm
+        vm.testmScope()
 
-        if (!isStart){
-            finish()
-            isStart = !isStart
-            startActivityByEx<SecondActivity>()
+//        if (!isStart){
+//            finish()
+//            isStart = !isStart
+//            startActivityByEx<SecondActivity>()
+//
+//        }else{
+//        }
 
-        }else{
-            vm.testmScope()
-        }
+
 
 
 
     }
 
 
-    override fun onDestroy() {
-        super.onDestroy()
-
-        LogUtils.tag("ogami").i("onDestroy")
-    }
 
 }

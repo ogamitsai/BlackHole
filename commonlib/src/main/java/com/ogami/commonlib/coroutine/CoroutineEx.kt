@@ -2,6 +2,7 @@ package com.ogami.commonlib.coroutine
 
 import com.apkfuns.logutils.LogUtils
 import kotlinx.coroutines.*
+import java.lang.IndexOutOfBoundsException
 import kotlin.coroutines.suspendCoroutine
 
 /**
@@ -14,25 +15,28 @@ import kotlin.coroutines.suspendCoroutine
 //协程调度器 内置3个线程供调度
 val coroutineDispatcher = newFixedThreadPoolContext(3, "BlackholeThread")
 
-val taskScope : CoroutineScope by lazy {
+val taskScope: CoroutineScope by lazy {
     CoroutineScope(coroutineDispatcher)
 }
 
-inline fun launch(delayTime: Long = 0, noinline job: suspend () -> Unit) =
-    taskScope.launch() {
-        delay(delayTime)
-        job()
-
-
-    }
-
-inline fun async(delayTime: Long = 0, noinline job: suspend () -> Unit) =
-    taskScope.async() {
+inline fun launchTask(delayTime: Long = 0, noinline job: suspend () -> Unit) =
+    taskScope.launch {
         delay(delayTime)
         job()
     }
 
+inline fun asyncTask(delayTime: Long = 0, noinline job: suspend () -> Unit) =
+    taskScope.async {
+        delay(delayTime)
+        job()
+    }
 
+inline fun launchOnUI(noinline block: suspend CoroutineScope.() -> Unit) =
+    taskScope.launch(context = Dispatchers.Main, block = block)
+
+inline fun launchChildTask(noinline block: suspend CoroutineScope.() -> Unit) = taskScope.launch(block = block)
+
+inline fun asyncChildTask(noinline block: suspend CoroutineScope.() -> Unit) = taskScope.async(block = block)
 
 inline fun <T> launchGlobal(delayTime: Long = 0, noinline job: suspend () -> T) =
     GlobalScope.launch(coroutineDispatcher) {
@@ -46,10 +50,6 @@ inline fun <T> asyncGlobal(delayTime: Long = 0, noinline job: suspend () -> T) =
         job()
     }
 
-
-inline fun <T> taskOnMainThread(noinline job: suspend () -> T) = runBlocking(Dispatchers.Main) {
-    job()
-}
 
 fun Deferred<Any>?.cancelByActive() = this?.run {
     tryCatch {
@@ -72,7 +72,7 @@ inline fun tryCatch(catchBlock: (Throwable) -> Unit = {}, tryBlock: () -> Unit) 
 //阻塞当前线程
 inline fun blocking() {
 
-    runBlocking {  }
+    runBlocking { }
 //    withContext{
 //
 //    }
