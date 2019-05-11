@@ -53,11 +53,12 @@ dependencies {
     api rootProject.ext.dependencies["retrofit-converter-gson"]
 
 
-    api rootProject.ext.dependencies["lifecycle"]
     api rootProject.ext.dependencies["lifecycle-viewmodel"]
 
     api rootProject.ext.dependencies["glide"]
     api rootProject.ext.dependencies["aspectj"]
+    api rootProject.ext.dependencies["viewpager2"]
+    api rootProject.ext.dependencies["material"]
 
 
 
