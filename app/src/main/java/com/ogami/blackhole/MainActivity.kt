@@ -9,6 +9,8 @@ import com.ogami.commonlib.android.startActivityByEx
 import com.ogami.commonlib.base.BaseActivity
 import com.ogami.commonlib.http.ApiService
 import com.ogami.commonlib.http.ApiFactory
+import com.ogami.commonlib.rx.async
+import com.ogami.commonlib.rx.handleResult
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -34,14 +36,48 @@ class MainActivity : BaseActivity() {
     } }
 
 
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         tv_this.adapter = mAdapter
 
 
-        tb_this.setupWithViewPager2(tv_this,mTitle)
+        ApiFactory.INSTANCE.createApi(MainApiService::class.java) .getAndroidGank()
+            .async()
+            .handleResult({
+                LogUtils.tag("ogami").i(it)
+            }, {
+                LogUtils.tag("ogami").i("lalalala")
+            })
+
+    }
 
 
+}
+
+interface sakula{
+
+    fun sing()
+}
+
+
+class gayama( val mo : Ogami = Ogami()) : sakula by mo{
+
+}
+
+
+class Ogami : sakula{
+
+    override fun sing() {
+
+
+    }
+
+
+    fun log(){
+        LogUtils.tag("ogami").i("i`am ogami")
     }
 }

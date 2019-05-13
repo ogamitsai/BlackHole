@@ -8,6 +8,9 @@ import com.ogami.commonlib.coroutine.*
 import com.ogami.commonlib.http.ApiFactory
 import com.ogami.commonlib.http.await
 import com.ogami.commonlib.http.request
+import com.ogami.commonlib.rx.async
+import com.ogami.commonlib.rx.handleResult
+import io.reactivex.functions.Consumer
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Default
 import kotlin.system.measureTimeMillis
@@ -22,7 +25,6 @@ class MainViewModel : BaseViewModel() {
 
 
     val api by lazy { ApiFactory.INSTANCE.createApi(MainApiService::class.java) }
-
 
 
     fun testmScope() {
@@ -61,13 +63,8 @@ class MainViewModel : BaseViewModel() {
 //        }
 
 
-        launchTask {
 
-        }
 
-        asyncTask{
-
-        }
     }
 
 

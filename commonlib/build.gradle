@@ -60,6 +60,10 @@ dependencies {
     api rootProject.ext.dependencies["viewpager2"]
     api rootProject.ext.dependencies["material"]
 
+    api "com.squareup.retrofit2:adapter-rxjava2:+"
+    api "io.reactivex.rxjava2:rxkotlin:+"
+    api "io.reactivex.rxjava2:rxandroid:+"
+
 
 
 //    api 'com.pape:net:1.0.2@aar' lifecycle retrofit 监听

@@ -1,7 +1,10 @@
 package com.ogami.blackhole
 
 import com.ogami.commonlib.http.ApiService
+import com.ogami.commonlib.rx.BaseResponce
+import io.reactivex.Single
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 
 /**
@@ -16,5 +19,5 @@ interface MainApiService  {
     fun getIOSGank(): Call<GankResult>
 
     @GET("data/Android/2/1")
-    fun getAndroidGank(): Call<GankResult>
+    fun getAndroidGank(): Single<Response<BaseResponce<Any>>>
 }
