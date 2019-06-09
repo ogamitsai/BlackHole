@@ -1,4 +1,4 @@
-package com.ditclear.paonet.aop.annotation
+package com.ogami.commonlib.aop.annotation
 
 /**
  * Created by ditclear

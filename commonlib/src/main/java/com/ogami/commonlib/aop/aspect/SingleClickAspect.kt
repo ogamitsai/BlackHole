@@ -1,7 +1,8 @@
-package com.ditclear.paonet.aop.aspect
+package com.ogami.commonlib.aop.aspect
 
 import android.util.Log
 import android.view.View
+import com.apkfuns.logutils.LogUtils
 import com.ogami.commonlib.BuildConfig
 import com.ogami.commonlib.R
 import org.aspectj.lang.ProceedingJoinPoint
@@ -20,14 +21,15 @@ import java.util.*
 @Aspect
 class SingleClickAspect {
 
-    @Pointcut("execution(@com.ditclear.paonet.aop.annotation.SingleClick * *(..))") //方法切入点
+    @Pointcut("execution(@com.ogami.commonlib.aop.annotation.SingleClick * *(..))") //方法切入点
     fun methodAnnotated() {
-
     }
 
     @Around("methodAnnotated()")//在连接点进行方法替换
     @Throws(Throwable::class)
     fun aroundJoinPoint(joinPoint: ProceedingJoinPoint) {
+
+        LogUtils.tag("ogami").i("aroundJoinPoint")
         var view: View? = null
         for (arg in joinPoint.args) {
             if (arg is View) view = arg

@@ -4,9 +4,9 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.apkfuns.logutils.LogUtils
 import com.ogami.commonlib.android.startActivityByEx
 import com.ogami.commonlib.base.BaseActivity
+import com.ogami.commonlib.coroutine.tryCatch
 import com.ogami.commonlib.http.ApiService
 import com.ogami.commonlib.http.ApiFactory
 import com.ogami.commonlib.rx.async
@@ -23,20 +23,19 @@ class MainActivity : BaseActivity() {
 
     val list by lazy { listOf(TestFragment(), SecondFragment()) }
 
-    val mTitle = listOf("tab1","tab2")
+    val mTitle = listOf("tab1", "tab2")
 
-    val mAdapter by lazy { object : FragmentStateAdapter(this) {
-        override fun getItem(position: Int): Fragment {
-            return list[position]
+    val mAdapter by lazy {
+        object : FragmentStateAdapter(this) {
+            override fun createFragment(position: Int): Fragment {
+                return list[position]
+            }
+
+            override fun getItemCount(): Int {
+                return list.size
+            }
         }
-
-        override fun getItemCount(): Int {
-            return list.size
-        }
-    } }
-
-
-
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,31 +44,41 @@ class MainActivity : BaseActivity() {
         tv_this.adapter = mAdapter
 
 
-        ApiFactory.INSTANCE.createApi(MainApiService::class.java) .getAndroidGank()
-            .async()
-            .handleResult({
-                LogUtils.tag("ogami").i(it)
-            }, {
-                LogUtils.tag("ogami").i("lalalala")
-            })
+        startActivityByEx<SecondActivity>()
 
+
+    }
+
+
+    fun backLambda(del: De): (Order) -> Double {
+
+        if (del == De.STA) return { order -> order.count * 1.3 }
+
+        return { order -> order.count * 1.2 }
     }
 
 
 }
 
-interface sakula{
+enum class De {
+    STA, EXP
+}
+
+class Order(val count: Int)
+
+
+interface sakula {
 
     fun sing()
 }
 
 
-class gayama( val mo : Ogami = Ogami()) : sakula by mo{
+class gayama(val mo: Ogami = Ogami()) : sakula by mo {
 
 }
 
 
-class Ogami : sakula{
+class Ogami : sakula {
 
     override fun sing() {
 
@@ -77,7 +86,4 @@ class Ogami : sakula{
     }
 
 
-    fun log(){
-        LogUtils.tag("ogami").i("i`am ogami")
-    }
 }
